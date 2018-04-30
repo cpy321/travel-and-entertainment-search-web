@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-animate.min.js"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBujGjblZKUI3x7RPPeuuibylg57cxIikg&libraries=places"></script>
+
+<!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBujGjblZKUI3x7RPPeuuibylg57cxIikg&libraries=places&callback=initAutocomplete"
+        async defer></script> -->
+
+	<!--<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBujGjblZKUI3x7RPPeuuibylg57cxIikg&libraries=places&callback=initMap">-->
+	<!--</script>-->
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.22.0/moment.min.js"></script>
+
+
+	
+	<style type="text/css">
+		body{
+		
+			margin: 0 auto;
+
+		}
+
+		.block{
+			text-align: center;
+			border: 2px solid #CCCCCC;
+			width: 70%;
+
+			top:2px;
+			margin: 0 auto;
+			position: relative;
+			background-color: #FAFAFA;
+		}
+
+        @media (max-width: 34em){
+            .block{
+                text-align: center;
+                border: 2px solid #CCCCCC;
+                width: 98%;
+                top:2px;
+                margin: 0 auto;
+                position: relative;
+                background-color: #FAFAFA;
+            }
+        }
+
+		.icon{
+			width: 48%;
+			border: 1px solid #CCCCCC;
+			border-radius:3px;
+			text-align: center;
+            cursor: pointer;
+		}
+		#nav1{
+			position: relative; 
+			margin: 0 auto;
+			text-align: center;
+			top:50px;
+		}
+
+		#next{
+			margin:0 auto;
+		}
+
+        #reviewTable{
+            border: 0px solid transparent;
+        }
+
+		.btn.btn-as-block {
+			display: block;
+		}
+
+		#tab1{
+			position: relative; 
+			margin: 0 auto;
+			text-align: center;
+			top:30px;
+			width:90%;
+		}
+
+        /*#resultDisplay{*/
+			/*margin:0 auto;*/
+			/*width:90%;*/
+        /*}*/
+        /*#favoriteDisplay{*/
+            /*margin:0 auto;*/
+            /*width:90%;*/
+        /*}*/
+
+
+
+        #detailsDisplay{
+            margin:0 auto;
+            width:90%;
+        }
+
+        #detailButton1{
+            width:100px;
+            height:30px;
+            border: 1px solid #CCCCCC;
+            border-radius:3px;
+            text-align: center;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        #detailButton2{
+            width:100px;
+            height:30px;
+            border: 1px solid #CCCCCC;
+            border-radius:3px;
+            text-align: center;
+            background-color: white;
+            cursor: pointer;
+        }
+
+		#showMap {
+			height: 300px;
+			width: 100%;
+		}
+
+
+		@media (min-width: 34em) {
+			.card-columns {
+				-webkit-column-count: 4;
+				-moz-column-count: 4;
+				column-count: 4;
+
+			}
+		}
+		.card{
+			padding: 2px;
+		}
+		.animate-show
+		{
+			position:relative;
+			opacity:1;
+			background:white;
+			left:0;
+		}
+
+		.animate-show.ng-hide-add.ng-hide-add-active
+		{
+			-webkit-transition:all linear 0s;
+			transition:all linear 0s;
+		}
+		.animate-show.ng-hide-remove.ng-hide-remove-active
+		{
+			-webkit-transition:all linear 0.5s;
+			transition:all linear 0.5s;
+		}
+
+		#detailsDisplay.animate-show.ng-hide
+		{
+			left:-100%;
+		}
+
+        #con2.animate-show.ng-hide
+        {
+            left:100%;
+        }
+
+		#con1.animate-show.ng-hide
+		{
+			left:100%;
+		}
+
+
+		/*input.ng-invalid {*/
+		    /*border: red solid;*/
+		/*}*/
+
+		/*input.ng-untouched{*/
+			/*border:1px #CFD4DA solid;*/
+		/*}*/
+
+	</style>
+</head>
+<body ng-controller="myCtrl">
+
+<div class="container">
+	<div class="block" >
+		<br>
+		<h5>Travel and Entertainment Search</h5>
+
+		<form  role="form" id="myForm" name="myForm" onsubmit="return false" action="##" method="get" style="width: 70%; margin:0 auto;text-align: left;" >
+			<div class="form-group row">
+			    <label for="keyword" class="col-sm-3 col-form-label">Keyword<span style="color:red">*</span></label>
+			    <div class="col-sm-9 needs-validation">
+			    	<input type="text" class="form-control form-control-sm" id="keyword" name="keyword" ng-model="keyword" placeholder="Keyword" onkeyup="isSearch()" required>
+			    	<span id="keyWarning" style="color:red;display: none">
+			    	Please enter a keyword.
+			    	</span>
+			    </div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-3 col-form-label" for="category">Category</label>
+				<div class="col-sm-6">
+					<select class="form-control form-control-sm" id="category" name="category">
+					    <option selected>Default</option>
+					    <option value="airport">Airport</option>
+					    <option value="amusement park">Amusement Park</option>
+					    <option value="aquarium">Aquarium</option>
+					    <option value="art gallery">Art Gallery</option>
+					    <option value="bakery">Bakery</option>
+					    <option value="bar">Bar</option>
+					    <option value="beauty salon">Beauty Salon</option>
+					    <option value="bowling alley">Bowling Alley</option>
+					    <option value="bus station">Bus Station</option>
+					    <option value="cafe">Cafe</option>
+					    <option value="campground">Campground</option>
+					    <option value="car rental">Car Rental</option>
+					    <option value="casino">Casino</option>
+					    <option value="lodging">Lodging</option>
+					    <option value="movie theater">Movie Theater</option>
+					    <option value="museum">Museum</option>
+					    <option value="night club">Night Club</option>
+					    <option value="park">Park</option>
+					    <option value="parking">Parking</option>
+					    <option value="restaurant">Restaurant</option>
+					    <option value="shopping mall">Shopping Mall</option>
+					    <option value="stadium">Stadium</option>
+					    <option value="subway station">Subway Station</option>
+					    <option value="taxi stand">Taxi Stand</option>
+					    <option value="train station">Train Station</option>
+					    <option value="transit station">Transit Station</option>
+					    <option value="travel agency">Travel Agency</option>
+					    <option value="zoo">Zoo</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="form-group row">
+			    <label for="inputDistance" class="col-sm-3 col-form-label">Distance(miles)</label>
+			    <div class="col-sm-6">
+			    	<input type="text" class="form-control form-control-sm" id="inputDistance" name="inputDistance" placeholder="10">
+			    </div>
+			</div>
+
+
+		  <fieldset class="form-group" >
+		    <div class="row"  >
+		    	<legend class="col-form-label col-sm-3 pt-0">From<span style="color:red">*</span></legend>
+		    	<div class="col-sm-9">
+			        <div class="form-check">
+			          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" onclick="check()" checked>
+			          <label class="form-check-label" for="gridRadios1">
+			            Current location
+			          </label>
+			        </div>
+
+			        <div class="form-check">
+			          <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2" onclick="check()">
+			          <label class="form-check-label" for="gridRadios2">
+			            Other. Please specify
+			          </label>
+			        </div>
+
+			        
+					<div class="col-sm-13">
+					    <input type="text" class="form-control form-control-sm" id="inputLocation" name="inputLocation" ng-model="inputLocation" placeholder="Enter a location" onkeyup="isSearch()" required disabled>
+				    	<span  id="locWarning"  style="color:red; display: none">
+				    	Please enter a location.
+				    	</span>
+				    </div>
+			
+
+		      </div>
+
+		    </div>
+		  </fieldset>
+
+
+		  <div class="form-group row">
+		    <div class="col-sm-10">
+		    	<button type="button" id="search" ng-click="search()" class="btn btn-primary" disabled ><i class="fas fa-search"></i>Search</button>
+		    	
+
+		  
+		    	<button type="reset" class="btn btn-outline-secondary" ng-click="clearAll()">Clear</button>
+		    </div>
+		  </div>
+		</form>
+	</div>
+</div>
+
+
+<ul class="nav nav-pills justify-content-center" role="tablist" style="position: relative; top: 15px">
+    <li class="nav-item">
+        <a class="nav-link active" id="results-tab" data-toggle="pill" role="tab" ng-click="showResult()" aria-controls="results" aria-selected="true" href="#results">Results</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="favorites-tab" data-toggle="pill" role="tab" ng-click="showFav()" aria-controls="favorites" aria-selected="false" href="#favorites">Favorites</a>
+    </li>
+</ul>
+
+
+<div class="tab-content" id="tab1">
+    <div class="tab-pane show active" id="results" role="tabpanel" aria-labelledby="results-tab" >
+		<div id="con1" class="animate-show" ng-hide="showValue2">
+		<div id="buttonCon1" class='d-flex justify-content-end'></div>
+        <div id="resultDisplay" class="table-responsive-md" style="text-align: center; white-space: nowrap " ></div>
+		</div>
+    </div>
+    <div class="tab-pane" id="favorites" role="tabpanel" aria-labelledby="favorites-tab">
+		<div id="con2" class="animate-show" ng-hide="showValue2">
+			<div id="buttonCon2" class='d-flex justify-content-end'></div>
+        <div id="favoriteDisplay" class="table-responsive-md" style="text-align: center;white-space: nowrap"></div>
+		</div>
+    </div>
+
+</div>
+
+<div id="detailsDisplay" class="animate-show" ng-show="showValue2"  value=""  style="text-align: center;top:50px;position: relative;">
+
+        <h5 id="placeName"> </h5>
+        <div id="rowButton" class="d-flex justify-content-between">
+
+        </div>
+
+
+
+        <ul class="nav nav-tabs justify-content-end" style="top:5px;position:relative;" id="myTab" role="tablist" >
+            <li class="nav-item">
+                <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true">Info</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="photos-tab" data-toggle="tab" href="#photos" role="tab" aria-controls="photos" aria-selected="false">Photos</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" id="map-tab" data-toggle="tab" href="#map" role="tab" aria-controls="map" aria-selected="false">Map</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false">Reviews</a>
+            </li>
+
+        </ul>
+
+        <br>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
+                <table id="infoTable" class="table table-striped" style="text-align: left;"></table>
+            </div>
+
+
+
+            <div class="tab-pane fade" id="photos" role="tabpanel" aria-labelledby="photos-tab"></div>
+
+
+
+            <div class="tab-pane fade" id="map" role="tabpanel" aria-labelledby="map-tab" style="text-align: left">
+                <div class="form-row" style="text-align: left">
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>From</label>
+                            <input type="text" id="from" class="form-control"  onkeyup="isDirection()"  value="Your location">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>To</label>
+                            <input type="text" id="to" class="form-control" placeholder="" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label>Travel Mode</label>
+                            <select id="travelMode" class="form-control">
+                                <option value="DRIVING">Driving</option>
+                                <option value="BICYCLING">Bicycling</option>
+                                <option value="TRANSIT">Transit</option>
+                                <option value="WALKING">Walking</option>
+                            </select>
+                        </div>
+                    </div>
+                    <span>&nbsp;</span>
+
+                    <div class="col-sm-1 ">
+                        <div class="form-group">
+                            <label>&nbsp;</label>
+                            <button type="button" id="direction" ng-click="getDirection()" class="btn btn-primary btn-as-block">Get Directions</button>
+                        </div>
+                    </div>
+                </div>
+                <img src="http://cs-server.usc.edu:45678/hw/hw8/images/Pegman.png"  id="viewButton" class="icon" ng-click="streetView()" style="width:40px;height:35px; margin-bottom:5px ;"> </img>
+                <div id="showMap"></div>
+                <div id="showDirection" style="text-align: left;"></div>
+            </div>
+
+
+            <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab" style="text-align: left;">
+
+                <div class="dropdown show" style="display: inline-block">
+                    <a class="btn btn-secondary dropdown-toggle" role="button" id="reviewDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{initReview}}</a>
+                    <div class="dropdown-menu" aria-labelledby="reviewDropdown">
+                        <a class="dropdown-item" value="Google Reviews" style="cursor: pointer;" ng-click="selectReview($event)">Google Reviews</a>
+                        <a class="dropdown-item" value="Yelp Reviews" style="cursor: pointer;"  ng-click="selectReview($event)">Yelp Reviews</a>
+                    </div>
+                </div>
+
+                <div class="dropdown show" style="display: inline-block">
+                    <a class="btn btn-secondary dropdown-toggle"  role="button" id="sortDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{initOrder}}</a>
+                    <div class="dropdown-menu" aria-labelledby="sortDropdown">
+                        <a class="dropdown-item"  value="Default Order" style="cursor: pointer;"  ng-click="selectOrder($event)">Default Order</a>
+                        <a class="dropdown-item"  value="Highest Rating" style="cursor: pointer;"  ng-click="selectOrder($event)">Highest Rating</a>
+                        <a class="dropdown-item"  value="Lowest Rating" style="cursor: pointer;"  ng-click="selectOrder($event)">Lowest Rating</a>
+                        <a class="dropdown-item"  value="Most Recent" style="cursor: pointer;"  ng-click="selectOrder($event)">Most Recent</a>
+                        <a class="dropdown-item"  value="Least Recent" style="cursor: pointer;"  ng-click="selectOrder($event)">Least Recent</a>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <table id="reviewTable" class="table" style="text-align:left;"></table>
+
+            </div>
+        </div>
+
+    </div>
+
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Open hours</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div  class="modal-body">
+					<table id="openHour" class="table">
+
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<div id="map1"></div>
+
+
+
+
+
+
+
+<script>
+
+    var app = angular.module("myApp", ["ngAnimate"]);
+    app.controller("myCtrl", function ($scope, $http, $compile) {
+
+        $scope.showValue2=false;
+        $scope.viewMap = true;
+        $scope.initReview="Google Reviews";
+        $scope.initOrder="Default Order";
+
+        $scope.toggle1=function(){
+            $scope.showValue2=!$scope.showValue2;
+            if(results.length!=0){
+                printResult(results[page]);
+			}
+            $scope.showFav();
+
+        }
+        $scope.toggle2=function(){
+            $scope.showValue2=!$scope.showValue2;
+            var placeID=$("#detailsDisplay").attr("value");
+
+            if(localStorage.hasOwnProperty(placeID)){
+                $("#favIcon").attr("value","1");
+                $("#favIcon").html("<i class='fas fa-star' style='color:#FDD444;'></i>");
+
+            }else{
+                $("#favIcon").attr("value","0");
+                $("#favIcon").html("<i class='far fa-star'></i>")
+            }
+        }
+
+
+
+
+	nextToken="";
+	results= new Array();
+	page = 0;
+	startLat="";
+	startLon="";
+	endLat="";
+	endLon="";
+	myStorage = window.localStorage;
+	enableDetail = false;
+	highlightRow="";
+
+
+	googleReview="";
+	yelpReview="";
+	panorama="";
+
+	outputWarning = "<div class=\"alert alert-warning\" style='text-align: left; margin-top: 50px' role=\"alert\">No records.</div>";
+	outputFailed = "<div class=\"alert alert-warning\" style='text-align: left' role=\"alert\">No records.</div>";
+
+	$(document).ready(function(){
+
+	    $("#keyword").blur(function () {
+            var keyword=$("#keyword").val();
+            if(keyword != undefined && keyword.trim() !="" ){
+                $("#keyWarning").css("display","none");
+                $("#keyword").css("border","1px #CFD4DA solid");
+                key=true;
+            }
+            else{
+                $("#keyWarning").css("display","inline");
+                $("#keyword").css("border","red solid");
+                key=false
+            }
+        });
+
+        $("#inputLocation").blur(function () {
+            var loc=$("#inputLocation").val();
+
+            if(loc != undefined && loc.trim() !=""  ){
+                $("#locWarning").css("display","none");
+                $("#inputLocation").css("border","1px #CFD4DA solid");
+                loc=true;
+            }
+            else{
+                $("#locWarning").css("display","inline");
+                $("#inputLocation").css("border","red solid");
+                loc=false;
+            }
+        });
+
+
+
+
+	  htmlobj=$.ajax({url:"http://ip-api.com/json",async:false});
+	  jsonObj=JSON.parse(htmlobj.responseText);
+	  if(jsonObj["status"]=="success"){ 
+	  		isIpSuccess = true;
+	  		lat = jsonObj["lat"];
+	  		lon = jsonObj["lon"];
+	  		startLat=lat;
+	  		startLon=lon;
+	  		
+		}else{
+			isIpSuccess = false;
+			}
+
+  });
+
+	var defaultBounds = new google.maps.LatLngBounds(
+	new google.maps.LatLng(34.0266, -118.2831),
+	new google.maps.LatLng(34, -118));
+
+	var input = document.getElementById('inputLocation');
+	var input2 = document.getElementById('from')
+	var options = {
+	  bounds: defaultBounds,
+	  types: ['establishment']
+	};
+
+	autocomplete = new google.maps.places.Autocomplete(input, options);
+	autocomplete2 = new google.maps.places.Autocomplete(input2, options);
+
+
+	$scope.clearAll=function(){
+        nextToken="";
+        results.length=0
+        page = 0;
+        startLat="";
+        startLon="";
+        endLat="";
+        endLon="";
+        myStorage = window.localStorage;
+        enableDetail = false;
+        highlightRow="";
+
+        $scope.showValue2=false;
+        $("#detailsDisplay").attr("value","");
+
+        googleReview="";
+        yelpReview="";
+        panorama="";
+
+
+        $("#resultDisplay").empty();
+        $("#buttonCon1").empty();
+
+        $("#keyWarning").css("display","none");
+        $("#keyword").css("border","1px #CFD4DA solid");
+        $("#locWarning").css("display","none");
+        $("#inputLocation").css("border","1px #CFD4DA solid");
+
+		backToInit();
+
+		$("#results-tab").attr("class","nav-link active");
+        $("#favorites-tab").attr("class","nav-link");
+        $("#results").attr("class","tab-pane show active");
+        $("#favorites").attr("class","tab-pane");
+
+	}
+        function backToInit(){
+            $scope.viewMap=true;
+            $scope.initOrder="Default Order";
+            $scope.initReview="Google Reviews";
+            $("#viewButton").attr('src','http://cs-server.usc.edu:45678/hw/hw8/images/Pegman.png');
+            $("#showDirection").empty();
+            $("#reviewTable").empty();
+            $("#info-tab").attr("class","nav-link active");
+            $("#photos-tab").attr("class","nav-link");
+            $("#map-tab").attr("class","nav-link");
+            $("#reviews-tab").attr("class","nav-link");
+            $("#info").attr("class","tab-pane fade show active");
+            $("#photos").attr("class","tab-pane fade");
+            $("#map").attr("class","tab-pane fade");
+            $("#reviews").attr("class","tab-pane fade");
+
+        }
+
+	$scope.search =function(){
+	    results.length=0;
+	    page=0;
+
+        $scope.showValue2=false;
+        enableDetail=false;
+        highlightRow="";
+        $("#detailsDisplay").attr("value","");
+        $("#results-tab").attr("class","nav-link active");
+        $("#favorites-tab").attr("class","nav-link");
+        $("#results").attr("class","tab-pane show active");
+        $("#favorites").attr("class","tab-pane");
+    	backToInit();
+
+
+
+
+		if($('#inputDistance').val()=='') $('#inputDistance').val(10);
+
+		var rad=document.getElementsByName("gridRadios");
+		if(rad[1].checked){
+            $('#from').val( $('#inputLocation').val());
+		}else{
+            $('#from').val("Your Location");
+		}
+
+
+		var formdata=$('#myForm').serialize();
+		formdata+="&lat="+lat+"&lon="+lon;
+		var html_text = "<div class=\"progress\"  style='margin-top:60px;'>" +
+            "<div class=\"progress-bar progress-bar-striped progress-bar-animated\" role=\"progressbar\" aria-valuenow=\"75\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 10%\"></div>\n" +
+            "</div>";
+
+		$("#resultDisplay").html(html_text);
+		var i=20;
+		var progressInterval =setInterval(function () {
+            if(i>100) clearInterval(progressInterval);
+            else {
+                $(".progress-bar").css("width", i + "%");
+                i += 20;
+            }
+        },200)
+
+        console.log(formdata);
+
+		$.ajax({
+
+                type: "GET",
+                dataType: "json",
+                url: "http://place-env.us-west-1.elasticbeanstalk.com/search" ,//url
+                data: formdata,
+                success: function(detailsResponse, status, xhr) {
+
+                    if(detailsResponse.hasOwnProperty("failed")){
+
+                        if(detailsResponse.failed == "ZERO_RESULTS"){
+                            $("#resultDisplay").html(outputWarning);
+                            $("#buttonCon1").empty();
+						}else{
+                            $("#resultDisplay").html(outputFailed);
+                            $("#buttonCon1").empty();
+						}
+					}else {
+
+                        printResult(detailsResponse);
+                    }
+                   
+                },
+                error : function() {
+                    $("#resultDisplay").html(outputFailed);
+                    $("#buttonCon1").empty();
+                    console.log(error);
+                }
+            });
+
+	}
+
+
+
+
+	function printResult(resultJson){
+        var  nearbyresults = resultJson.results;
+        var html_text="";
+
+
+        if(resultJson.status =="OK"){
+
+			var btn_text="";
+            if(enableDetail){
+            btn_text="<div class='d-flex justify-content-end'><button id='detailButton1' ng-click=\"toggle2()\" >Details <i class='fas fa-angle-right'></i></button></div>";}
+            else{
+                btn_text="<div class='d-flex justify-content-end'><button id='detailButton1' ng-click=\"toggle2()\"  disabled>Details <i class='fas fa-angle-right'></i></button></div>";
+			}
+
+            var $btn_text= $compile(btn_text)($scope);
+            $("#buttonCon1").html($btn_text);
+
+            html_text+="<table class='table table-hover' style='text-align:left;margin-top: 7px;'>";
+
+            html_text+="<thead > <tr> " +
+                "<th scope=\"col\">#</th> " +
+				"<th scope=\"col\">Category</th> " +
+				"<th scope=\"col\">Name</th> " +
+				"<th scope=\"col\">Address</th> " +
+                "<th scope=\"col\">Favorite</th> " +
+                "<th scope=\"col\">Details</th> " +
+				"</tr></thead> ";
+            html_text+="<tbody>";
+
+
+            for(i=0; i<nearbyresults.length;i++ ){
+
+                if(highlightRow ==nearbyresults[i]["place_id"] ){
+                    html_text+="<tr style='background-color: #FED98C'><th width='3%' scope=\"row\">"+(i+1)+"</th>";
+				}else{
+                    html_text+="<tr><th width='3%' scope=\"row\">"+(i+1)+"</th>";
+				}
+
+                html_text+="<td width='5%'><img src='"+ nearbyresults[i]["icon"] +"' width='30px' height='30px' ></td>";
+                html_text+="<td width='41%' > <a>"+ nearbyresults[i]["name"]+ "</a> </td>";
+
+                html_text+="<td width='41%'><a>"+ nearbyresults[i]["vicinity"]+" </a></td>";
+
+                var plainName = escape(nearbyresults[i]["name"]);
+                if(localStorage.hasOwnProperty(nearbyresults[i]["place_id"])){
+                    html_text+="<td width='5%'><div class='icon' style='background-color: white' value='1' onclick='favorite(this, \""+ nearbyresults[i]["icon"]+"\",\""+plainName+"\",\""+nearbyresults[i]["vicinity"]+"\",\""+nearbyresults[i]["place_id"]+"\" )'><i class='fas fa-star' style='color:#FDD444;'></i></div></td>";
+
+                }else{
+                   html_text+="<td width='5%'><div class='icon' value='0'  style='background-color: white' onclick='favorite(this, \""+ nearbyresults[i]["icon"]+"\",\""+plainName+"\",\""+nearbyresults[i]["vicinity"]+"\",\""+nearbyresults[i]["place_id"]+"\" )'><i class='far fa-star'></i></div></td>";
+
+				}
+
+
+                html_text+="<td width='5%'><div class='icon' style='background-color: white'  ng-click='showDetails(\""+ nearbyresults[i]["icon"]+"\",\""+plainName+"\",\""+nearbyresults[i]["vicinity"]+"\",\""+nearbyresults[i]["place_id"]+"\")'><i class='fas fa-angle-right'></i></div></td>";
+                html_text+="</tr>";
+                
+            }
+            html_text+="</tbody></table>";
+
+            if(page != 0 ){
+
+                html_text+="<button  id='showP' ng-click='showPrevious()' class='btn btn-outline-secondary' style='width:100px;margin-left: 5px; margin-right:5px; '>Previous</button>";
+
+			}
+			if(resultJson.hasOwnProperty("next_page_token")){
+			    nextToken = resultJson.next_page_token;
+                html_text+="<button  id='showN' ng-click='showNext()' class='btn btn-outline-secondary' style='width: 100px; margin-left: 5px; margin-right:5px;'>Next</button>";
+			}
+            html_text+="<br><br>";
+			var $html_text = $compile(html_text)($scope);
+
+            $("#resultDisplay").html($html_text);
+
+        }
+        else if(resultJson.status =="ZERO_RESULTS"){
+            $("#resultDisplay").html(outputWarning);
+            $("#buttonCon1").empty();
+
+		}else{
+            $("#resultDisplay").html(outputFailed);
+            $("#buttonCon1").empty();
+		}
+
+        results[page]=resultJson;
+
+	}
+
+		$scope.showResult=function(){
+            $scope.showValue2 = false;
+            if(results.length!=0){
+                printResult(results[page]);
+			}
+		}
+
+
+        $scope.showFav=function () {
+            $scope.showValue2 = false;
+
+            if (localStorage.length == 0) {
+                $("#favoriteDisplay").html(outputWarning);
+                $("#buttonCon2").empty();
+            } else {
+
+
+                var html_text = "";
+				var btn_text="";
+                if(enableDetail){
+                    btn_text="<div class='d-flex justify-content-end'><button id='detailButton2' ng-click=\"toggle2()\" >Details <i class='fas fa-angle-right'></i></button></div>";
+
+                }else{
+                    btn_text="<div class='d-flex justify-content-end'><button id='detailButton2' ng-click=\"toggle2()\"  disabled>Details <i class='fas fa-angle-right'></i></button></div>";
+                }
+
+                var $btn_text = $compile(btn_text)($scope);
+                $("#buttonCon2").html($btn_text);
+
+                html_text += "<table class='table table-hover' style='text-align:left;margin-top: 7px;'>";
+
+                html_text += "<thead > <tr> " +
+                    "<th scope=\"col\">#</th> " +
+                    "<th scope=\"col\">Category</th> " +
+                    "<th scope=\"col\">Name</th> " +
+                    "<th scope=\"col\">Address</th> " +
+                    "<th scope=\"col\">Favorite</th> " +
+                    "<th scope=\"col\">Details</th> " +
+                    "</tr></thead> ";
+                html_text += "<tbody>";
+
+
+                for (var i = 0; i < localStorage.length; i++) {
+                    var data = localStorage.getItem(localStorage.key(i));
+
+                    resultJson = JSON.parse(data);
+
+                    if(highlightRow==resultJson["place_id"]){
+
+                        html_text += "<tr style='background-color: #FED98C'><th width='3%' scope=\"row\">" + (i + 1) + "</th>";
+					}else{
+                        html_text += "<tr><th width='3%' scope=\"row\">" + (i + 1) + "</th>";
+					}
+
+
+                    html_text += "<td width='5%'><img src='" + resultJson["icon"] + "' width='30px' height='30px' ></td>";
+                    html_text += "<td width='41%' > <a>" + unescape(resultJson["name"]) + "</a> </td>";
+                    html_text += "<td width='41%'><a>" + resultJson["vicinity"] + " </a></td>";
+                    html_text += "<td width='5%'><div  class='icon' style='background-color: white' ng-click='deleteFav(\"" + resultJson["place_id"] + "\" )'><i class='fas fa-trash-alt'></i></div></td>";
+
+
+                    html_text += "<td width='5%'><div class='icon' style='background-color: white' ng-click='showDetails(\""+ resultJson["icon"]+"\",\""+resultJson["name"]+"\",\""+resultJson["vicinity"]+"\",\""+resultJson["place_id"]+"\")'><i class='fas fa-angle-right'></i></div></td>";
+                    html_text += "</tr>";
+                }
+                html_text += "</tbody></table>";
+                html_text += "<br><br>";
+                var $html_text = $compile(html_text)($scope);
+
+
+                $("#favoriteDisplay").html($html_text);
+
+            }
+        }
+
+        $scope.deleteFav=function(placeID) {
+
+            localStorage.removeItem(placeID);
+            $scope.showFav();
+        }
+
+
+
+        $scope.showDetails=function(icon,name,vicinity, placeID){
+
+	    	enableDetail = true;
+	    	highlightRow=placeID;
+			backToInit();
+
+			$("#detailsDisplay").attr("value", placeID);
+
+            var row_text="<div class=\"icon\" ng-click='toggle1()' style=\"width:55px;height:28px;\"><i class='fas fa-angle-left'></i>List</div>" +
+                "<div class=\"d-flex justify-content-between\" style=\"width:80px\">";
+            if(localStorage.hasOwnProperty(placeID)){
+                row_text+="<div id=\"favIcon\" class=\"icon\" value=\"1\"  onclick='favorite(this, \""+ icon+"\",\""+name+"\",\""+vicinity+"\",\""+placeID+"\" )' style=\"width:35px;height:30px;\"><i class='fas fa-star' style='color:#FDD444;'></i></div>";
+                $("#favIcon").attr("value","1");
+
+            }else{
+                row_text+="<div id=\"favIcon\" class=\"icon\" value=\"0\"  onclick='favorite(this, \""+ icon+"\",\""+name+"\",\""+vicinity+"\",\""+placeID+"\" )'  style=\"width:35px;height:30px;\"><i class='far fa-star'></i></div>"
+                $("#favIcon").attr("value","0");
+
+            }
+
+                row_text+="<a id=\"twitterButton\" target=\"_blank\"><img src=\"http://cs-server.usc.edu:45678/hw/hw8/images/Twitter.png\"  style=\"width:35px;height:30px;cursor: pointer;  \"> </img></a>" +
+                "</div>"
+
+            var $row_text = $compile(row_text)($scope);
+            ;
+			$("#rowButton").html($row_text);
+
+            $scope.showValue2=true;
+            var request = {
+                placeId: placeID
+            };
+
+            service = new google.maps.places.PlacesService(map1);
+            service.getDetails(request, callback);
+
+            function callback(place, status) {
+                if (status == google.maps.places.PlacesServiceStatus.OK) {
+
+
+                    $("#placeName").html(place.name);
+                    var html_text="<div class='container'>";
+                    if(place.hasOwnProperty("formatted_address")){
+                        html_text+= "<tr><th scope=\"row\" width='20%'>Address</th><td>"+place.formatted_address+"</td></tr>";
+                    }
+                    if(place.hasOwnProperty("international_phone_number")){
+                        html_text+= "<tr><th scope=\"row\" width='20%'>Phone Number</th><td>"+place.international_phone_number+"</td></tr>";
+                    }
+                    if(place.hasOwnProperty("price_level")){
+                        var num=place.price_level;
+                        var pricelevel="";
+                        for(var i=0; i<num; i++){pricelevel+="$";}
+
+                        html_text+= "<tr><th scope=\"row\" width='20%'>Price Level</th><td>"+pricelevel+"</td></tr>";
+                    }
+                    if(place.hasOwnProperty("rating")){
+                    	star = (place.rating/5) * 69;
+
+                        html_text+= "<tr><th scope=\"row\" width='20%'>Rating</th><td><div style='float:left'>"+place.rating+"&nbsp</div><div style='overflow: hidden; width:"+star+"px;float:left'><span style='height:5px;color:orange;'>★★★★★</span></div></td></tr>";
+                    }
+                    if(place.hasOwnProperty("url")){
+                        html_text+= "<tr><th scope=\"row\" width='20%'>Google Page</th><td><a href='"+place.url +"' target=\"_black\">"+place.url+"</a></td></tr>";
+                    }
+                    if(place.hasOwnProperty("website")){
+                        html_text+= "<tr><th scope=\"row\" width='20%'>Website</th><td><a href='"+place.website +"' target=\"_black\">"+place.website+"</a></td></tr>";
+                    }
+                    if(place.hasOwnProperty("opening_hours")){
+                        var text="";
+                              var day = moment().utc().utcOffset(place.utc_offset).format("d");
+
+                                var sp = place.opening_hours.weekday_text[day-1].split(":");
+                                var first = sp[0];
+
+                                sp.shift();
+
+                                var second = sp.join(":");
+                        if(place.opening_hours.hasOwnProperty("open_now")){
+                            if(place.opening_hours.open_now){
+                                text+="Open Now: ";
+
+                                text+=second;
+					
+
+                            }else{
+                                text+= "Closed";
+                            }
+
+                            	text+="&nbsp&nbsp&nbsp";
+                                text +="<a data-toggle=\"modal\" href=\"#exampleModalCenter\">Daily open hours</a>"
+								var openhour="";
+                                openhour+="<tr><th scope='col' width='35%'>"+first+"</th><th>"+second+"</th></tr>";
+                                for(var i=0; i<7; i++){
+                                    if(i!=day-1){
+                                        var sp = place.opening_hours.weekday_text[i].split(":");
+                                        var first = sp[0];
+                                        sp.shift();
+                                        var second = sp.join(":");
+                                        openhour+="<tr><td scope='row' width='35%'>"+first+"</td><td>"+second+"</td></tr>";
+									}
+								}
+                                $("#openHour").html(openhour);
+                        }
+                        html_text+= "<tr><th scope=\"row\" width='20%'>Hours</th><td>"+text+"</td></tr>";
+                    }
+
+                    html_text+="</div>";
+                    $("#infoTable").html(html_text);
+
+                    //photo
+                    var photo_html = "";
+                    if(place.hasOwnProperty("photos")){
+                        photo_html += "<div class=\"card-columns\">";
+                        var photos=place.photos;
+
+                        for(var i=0; i<photos.length; i++){
+                            var url=photos[i].getUrl({'maxWidth':500, 'maxHeight':500});
+
+                            photo_html+="<div class='card' style='float:left'><a href='"+url+"' target='_black' ><img class='card-img' src='"+url+"'  alt='Card image'></a></div>";
+						}
+						photo_html+="</div>";
+
+					}else{
+                        photo_html+=outputWarning;
+
+					}
+                    $("#photos").html(photo_html);
+
+                    endLat=place.geometry.location.lat();
+                    endLon=place.geometry.location.lng();
+
+
+                    //maps
+                    var startPos = {lat:endLat, lng:endLon};
+
+                    var map = new google.maps.Map(document.getElementById('showMap'), {
+                        center: startPos,
+                        zoom: 15
+                    });
+                    var marker = new google.maps.Marker({
+                        position: startPos,
+                        map: map
+                    });
+
+                    panorama = map.getStreetView();
+                    panorama.setPosition(startPos);
+                    panorama.setPov(/** @type {google.maps.StreetViewPov} */({
+                        heading: 265,
+                        pitch: 0
+                    }));
+
+
+
+                    var startText = place.name +", "+place.formatted_address;
+
+                    $("#to").attr('placeholder',startText);
+
+
+                    //review
+                    googleReview=place.reviews;
+
+
+                    var encodeAdd= encodeURIComponent(place.formatted_address);
+                    var encodeName = encodeURIComponent(place.name);
+                    var formdata = "formatted_address="+encodeAdd+"&name="+encodeName;
+
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: "http://place-env.us-west-1.elasticbeanstalk.com/yelp",//url
+                        data: formdata,
+                        success: function (detailsResponse, status, xhr) {
+                            yelpReview=detailsResponse.reviews;
+                        },
+                        error: function (error) {
+                            console.log(error);
+                        }
+
+                    });
+
+                    $scope.showReview();
+
+                    var placeUrl="";
+                    if(place.hasOwnProperty("website")){
+                        placeUrl=place.website
+                    }else{
+                        placeUrl=place.url;
+                    }
+
+
+
+                    var tUrl = encodeURI("https://twitter.com/intent/tweet?text="+"Check out "+place.name+" located at "+place.formatted_address+". Website: "+placeUrl+"&hashtags=TravelAndEntertainmentSearch");
+
+                    $("#twitterButton").click(function () {
+                        var iTop = (window.screen.height-400)/2;
+                        var iLeft = (window.screen.width-400)/2;
+                        window.open(tUrl,"_blank","width=400,height=400,top="+iTop+",left="+iLeft+",resizeable=no" );
+                    });
+
+
+                }
+                else {
+                    $("#infoTable").html(outputFailed);
+                    $("#photos").html(outputFailed);
+                    $("#showDirection").html(outputFailed);
+                    $("#reviewsTable").html(outputFailed);
+
+                }
+            }
+        }
+
+        $scope.streetView=function(){
+            $scope.viewMap = !$scope.viewMap;
+            if($scope.viewMap){
+                $("#viewButton").attr('src','http://cs-server.usc.edu:45678/hw/hw8/images/Pegman.png');
+            }else{
+                $("#viewButton").attr('src','http://cs-server.usc.edu:45678/hw/hw8/images/Map.png');
+            }
+
+            var toggle = panorama.getVisible();
+            if (toggle == false) {
+                panorama.setVisible(true);
+            } else {
+                panorama.setVisible(false);
+            }
+
+
+        }
+
+        $scope.selectReview = function (event) {
+            $scope.initReview =event.target.getAttribute("value");
+            $scope.showReview();
+        }
+        $scope.selectOrder = function (event) {
+            $scope.initOrder =event.target.getAttribute("value");
+            $scope.showReview();;
+        }
+
+        $scope.showReview = function(){
+	        var review_text="";
+
+            function sortBy(field) {
+                return function(a,b) {
+                    return a[field] - b[field];
+                }
+            }
+
+	        if($scope.initReview == "Google Reviews"){
+	            if(googleReview != "" && googleReview!=undefined){
+
+
+	                if($scope.initOrder=="Highest Rating"){
+                        googleReview.sort(sortBy("rating"));
+                        googleReview.reverse();
+                    }
+                    else if($scope.initOrder=="Lowest Rating"){
+                        googleReview.sort(sortBy("rating"));
+                    }
+                    else if($scope.initOrder=="Most Recent"){
+                        googleReview.sort(sortBy("time"));
+                        googleReview.reverse();
+                    }
+                    else if($scope.initOrder=="Least Recent"){
+                        googleReview.sort(sortBy("time"));
+                    }
+
+
+                    for(var i=0; i<googleReview.length;i++){
+                        var star = (googleReview[i].rating/5) * 69;
+                        var newDate = new Date();
+                        newDate.setTime(googleReview[i].time * 1000);
+                        var time =newDate.toISOString();
+                        var showtime = time.split("T")[0]+" "+time.split("T")[1].split(".")[0];
+
+                        review_text+="<tr style='border:1px solid #CCCCCC' ><td width='8%'><a href='"+ googleReview[i].author_url+"' target=\"_black\"  ><img src='"+googleReview[i].profile_photo_url+"' width='50px' height='50px'  /></a></td>" +
+                            "<td  width='90%'><div><a href='"+ googleReview[i].author_url+"' target=\"_black\">"+googleReview[i].author_name+"</a></div>" +
+                            "<div><div style='overflow: hidden; width:"+star+"px;display: inline-block;vertical-align:top;'><span style='height:5px;color:orange;'>★★★★★</span></div>" +
+                            "<div style='display: inline-block;vertical-align:top;color:grey;'>"+showtime+"</div></div>" +
+                            "<div >"+googleReview[i].text+"</div></td></tr>";
+                        review_text+="<tr style='height:10px'><td></td><td/></tr>";
+                    }
+
+                }else{
+	                review_text+=outputWarning;
+                }
+
+
+            }else{
+                if(yelpReview!= "" && yelpReview!=undefined){
+
+                        if(yelpReview.hasOwnProperty("failed")){
+                            if(yelpReview.failed == "ZERO_RESULTS"){
+                                review_text+=outputWarning;
+                            }else{
+                                review_text+=outputFailed;
+                            }
+
+                        }else{
+                            console.log(yelpReview);
+
+                            if($scope.initOrder=="Highest Rating"){
+                                yelpReview.sort(sortBy("rating"));
+                                yelpReview.reverse();
+                            }
+                            else if($scope.initOrder=="Lowest Rating"){
+                                yelpReview.sort(sortBy("rating"));
+                            }
+                            else if($scope.initOrder=="Most Recent"){
+                                for(var i=0; i<yelpReview.length; i++){
+                                    var date = new Date(yelpReview[i].time_created);
+                                    yelpReview[i].time_created=date.getTime();
+                                }
+
+                                yelpReview.sort(sortBy("time_created"));
+                                yelpReview.reverse();
+
+                                for(var i=0; i<yelpReview.length; i++){
+                                    var newDate = new Date();
+                                    newDate.setTime(yelpReview[i].time_created);
+                                    var time =newDate.toISOString();
+                                    var showtime = time.split("T")[0]+" "+time.split("T")[1].split(".")[0];
+                                    yelpReview[i].time_created=showtime;
+                                }
+
+                            }
+                            else if($scope.initOrder=="Least Recent"){
+                                for(var i=0; i<yelpReview.length; i++){
+                                    var date = new Date(yelpReview[i].time_created);
+                                    yelpReview[i].time_created=date.getTime();
+                                }
+                                yelpReview.sort(sortBy("time_created"));
+
+                                for(var i=0; i<yelpReview.length; i++){
+                                    var newDate = new Date();
+                                    newDate.setTime(yelpReview[i].time_created);
+                                    var time =newDate.toISOString();
+                                    var showtime = time.split("T")[0]+" "+time.split("T")[1].split(".")[0];
+                                    yelpReview[i].time_created=showtime;
+                                }
+                            }
+
+
+
+
+                            for(var i=0; i<yelpReview.length;i++){
+                                var star = (yelpReview[i].rating/5) * 69;
+
+                                review_text+="<tr style='border:1px solid #CCCCCC' ><td width='8%'><a href='"+ yelpReview[i].url+"' target=\"_black\"  ><div style='border-radius:25px;width:50px;height:50px;overflow: hidden;text-align: center'><img src='"+yelpReview[i].user.image_url+"' width='50px' height='50px'  /></div></a></td>" +
+                                    "<td  width='90%'><div><a href='"+ yelpReview[i].url+"' target=\"_black\">"+yelpReview[i].user.name+"</a></div>" +
+                                    "<div><div style='overflow: hidden; width:"+star+"px;display: inline-block;vertical-align:top;'><span style='height:5px;color:orange;'>★★★★★</span></div>" +
+                                    "<div style='display: inline-block;vertical-align:top;color:grey;'>"+yelpReview[i].time_created+"</div></div>" +
+                                    "<div >"+yelpReview[i].text+"</div></td></tr>";
+                                review_text+="<tr style='height:10px'><td></td><td/></tr>";
+                            }
+                        }
+
+                }else{
+                    review_text+=outputFailed;
+                }
+
+            }
+
+            $("#reviewTable").html(review_text);
+        }
+
+
+
+
+		$scope.getDirection=function(){
+            $scope.viewMap = true;
+	    	var location = $("#from").val();
+	    	var lat="";
+	    	var lon="";
+            $("#showDirection").empty();
+
+
+			// if(location == undefined || location == ""){
+			//     location = $("#from").attr('placeholder');
+			// }
+
+            if(location.toLowerCase()=="my location" || location.toLowerCase()=="your location"){
+                lat = startLat;
+                lon = startLon;
+            }
+			else{
+
+			    var templocation = encodeURI(location);
+                var url ='https://maps.googleapis.com/maps/api/geocode/json?address='+templocation+'&key=AIzaSyBujGjblZKUI3x7RPPeuuibylg57cxIikg'
+                htmlobj=$.ajax({url:url,async:false, type:"GET"});
+                geoJson=JSON.parse(htmlobj.responseText);
+                if(geoJson["status"]=="OK") {
+                    lat = geoJson["results"][0]["geometry"]["location"]["lat"];
+                    lon = geoJson["results"][0]["geometry"]["location"]["lng"];
+
+                }
+                else if(geoJson["status"]=="ZERO_RESULTS") {
+					$("#showDirection").html(outputWarning);
+					return;
+                }
+                else{
+                    $("#showDirection").html(outputFailed);
+                    return;
+                }
+			}
+
+
+
+            var directionsDisplay = new google.maps.DirectionsRenderer;
+            var directionsService = new google.maps.DirectionsService;
+            var map = new google.maps.Map(document.getElementById('showMap'), {
+                zoom: 7,
+                center: {lat: endLat, lng: endLon}
+            });
+
+            panorama = map.getStreetView();
+            panorama.setPosition({lat: endLat, lng: endLon});
+            panorama.setPov(/** @type {google.maps.StreetViewPov} */({
+                heading: 265,
+                pitch: 0
+            }));
+
+            directionsDisplay.setMap(map);
+            directionsDisplay.setPanel(document.getElementById('showDirection'));
+
+            var start = new google.maps.LatLng(lat, lon);
+            var end = new google.maps.LatLng(endLat, endLon);
+            var selectedMode = document.getElementById('travelMode').value;
+
+            directionsService.route({
+				provideRouteAlternatives:true,
+                origin: start,
+                destination: end,
+                travelMode: google.maps.TravelMode[selectedMode]
+            }, function(response, status) {
+                if (status === 'OK') {
+                    directionsDisplay.setDirections(response);
+                    console.log(response);
+                }else{
+                    $("#showDirection").html(outputFailed);
+				}
+            });
+
+
+
+
+
+		}
+
+
+        $scope.showPrevious=function(){
+            page -= 1;
+            printResult(results[page]);
+
+        }
+
+        $scope.showNext=function(){
+            page +=1;
+            if(page < results.length){
+                printResult(results[page]);
+            }
+            else {
+                var formdata = "nextToken=" + nextToken;
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    url: "http://place-env.us-west-1.elasticbeanstalk.com/next",//url
+                    data: formdata,
+                    success: function (detailsResponse, status, xhr) {
+                        //console.log(detailsResponse);
+                        printResult(detailsResponse);
+
+                    },
+                    error: function () {
+                        console.log(error);
+                    }
+
+                });
+            }
+        }
+
+
+    });
+
+
+
+    function check(){                                //Disabling nearby input
+        var rad=document.getElementsByName("gridRadios");
+
+        if(rad[0].checked){
+            $('#inputLocation').attr("disabled",true);
+            if($('#keyword').val()!= undefined && $('#keyword').val().trim() != ""){
+                $('#search').attr("disabled",false);
+            }
+            $("#locWarning").css("display","none");
+            $("#inputLocation").css("border","1px #CFD4DA solid");
+        }else if(rad[1].checked){
+            $('#inputLocation').attr("disabled",false);
+            if($('#inputLocation').val()!= undefined && $('#inputLocation').val().trim() != "" && $('#keyword').val()!= undefined && $('#keyword').val().trim() != ""){
+                $('#search').attr("disabled",false);
+			}else{
+                $('#search').attr("disabled",true);
+			}
+        }
+
+    }
+
+    function favorite(event,icon,name,vicinity,placeID){
+
+
+        if($(event).attr("value")=="0"){
+            $(event).attr("value","1");
+            event.innerHTML="<i class='fas fa-star' style='color:#FDD444;'></i>";
+            const info = {
+                icon:icon,
+                name:name,
+                vicinity:vicinity,
+                place_id:placeID,
+            }
+            localStorage.setItem(placeID, JSON.stringify(info));
+        }else{
+            $(event).attr("value","0");
+            event.innerHTML="<i class='far fa-star'></i>";
+            localStorage.removeItem(placeID);
+        }
+
+    }
+    function isDirection() {
+        var from=$("#from").val();
+        if(from != undefined && from .trim() !="" ){
+            $("#direction").attr("disabled",false);
+
+        }
+        else{
+            $("#direction").attr("disabled",true);
+        }
+    }
+
+    function isSearch(){
+        var keyword=$("#keyword").val();
+        // location=$("#inputLocation").val();
+		var ip =false;
+		var key=false;
+		var loc=true;
+
+        	if(isIpSuccess) {
+            	ip=true;
+       	}else{
+        	    ip=false;
+			}
+
+        	var keyword=$("#keyword").val();
+            if(keyword != undefined && keyword.trim() !="" ){
+                $("#keyWarning").css("display","none");
+                $("#keyword").css("border","1px #CFD4DA solid");
+                key=true;
+            }
+            else{
+                $("#keyWarning").css("display","inline");
+                $("#keyword").css("border","red solid");
+				key=false
+            }
+
+            if(document.getElementById("inputLocation").disabled == false){
+                var loc=$("#inputLocation").val();
+
+                if(loc != undefined && loc.trim() !=""  ){
+                    $("#locWarning").css("display","none");
+                    $("#inputLocation").css("border","1px #CFD4DA solid");
+                    loc=true;
+                }
+                else{
+                    $("#locWarning").css("display","inline");
+                    $("#inputLocation").css("border","red solid");
+                    loc=false;
+                }
+            }
+
+            if(ip&&key&&loc){
+
+                $('#search').attr("disabled",false);
+			}else{
+                $('#search').attr("disabled",true);
+			}
+
+
+    }
+
+
+
+
+</script>
+
+</body>
+</html>
