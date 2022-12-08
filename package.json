@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.3",
+    "express": "^4.17.3",
     "request": "^2.85.0",
     "sync-request": "^6.0.0",
     "yelp-fusion": "^2.0.3"
